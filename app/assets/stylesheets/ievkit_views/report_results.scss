@@ -1,0 +1,64 @@
+.ievkit {
+  &-AccordionBlock {
+    ul {
+      margin: 0;
+      padding: 0;
+      ul {
+        padding-left: 31px;
+      }
+    }
+    li {
+      list-style: none;
+    }
+    /*
+    .panel-title {
+      > a {
+        display: block;
+      }
+    }
+    */
+    &-details {
+      border: none;
+      background: none;
+    }
+    &-errorInfo {
+      font-style: italic;
+      font-size: smaller;
+    }
+    &-errorId {
+      margin: 0 0 0 19px;
+      font-weight: bold;
+      &-detail {
+        margin: 0 0 0 19px;
+      }
+    }
+  }
+  &-ColorBlock {
+    &-ok, &-ok-sign {
+      color: green;
+    }
+    &-ignored {
+      color: #000;
+    }
+    &-alert {
+      color: orange;
+    }
+    &-remove, &-minus-sign {
+      color: red;
+    }
+  }
+  &-BgColorBlock {
+    &-ok, &-ok-sign {
+      background-color: green !important;
+    }
+    &-ignored {
+      background-color: #000 !important;
+    }
+    &-alert {
+      background-color: orange !important;
+    }
+    &-remove, &-minus-sign {
+      background-color: red !important;
+    }
+  }
+}

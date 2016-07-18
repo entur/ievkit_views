@@ -1,0 +1,13 @@
+<% filename = true if local_assigns[:filename].nil? %>
+<% if detail[:source][:file] && detail[:source][:file][:filename] %>
+  <strong>
+    <%= detail[:source][:file][:filename] if filename %>
+    <% if detail[:source][:file][:line_number].to_i > 0 %>
+      <%= t('report.file.line') %> <%= detail[:source][:file][:line_number] %>
+    <% end %>
+    <% if detail[:source][:file][:column_number].to_i > 0 %>
+      <%= t('report.file.column') %> <%= detail[:source][:file][:column_number] %>
+    <% end %>
+  </strong>
+  -
+<% end %>

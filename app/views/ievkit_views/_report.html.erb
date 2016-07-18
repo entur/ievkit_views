@@ -1,0 +1,35 @@
+<% if @elements_to_paginate.any? %>
+  <span class="cvd-SpritesBlock cvd-SpritesBlock-stamp
+               cvd-SpritesBlock-stamp-<%= @job.format.downcase %>-<%= @result == :error ? 'nok' : 'ok' %>">
+    <span><%= @result == :error ? 'Refusé' : 'Approuvé' %></span>
+  </span>
+<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <%= render 'ievkit_views/report_links' %>
+  </div>
+</div>
+<% if @elements_to_paginate.any? %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= render 'ievkit_views/report_badges' %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <%= render 'ievkit_views/report_filters', { current_page: current_page } %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <p>
+      <% if @default_view == :transport_datas && @transport_datas_selected %>
+        <%= t("report.total_results.synthesis.#{@transport_datas_selected}", count: @datas.count) %>
+      <% else %>
+        <%= t("report.total_results.#{@default_view}", count: @datas.count) %>
+      <% end %>
+    </p>
+    <%= render 'ievkit_views/report_results' %>
+  </div>
+</div>

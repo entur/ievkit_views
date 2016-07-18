@@ -1,0 +1,53 @@
+<div class="table-responsive" style="margin-top:20px;">
+  <table class="table table-bordered table-striped">
+    <tr>
+      <td><strong>Synthèse</strong></td>
+      <td>Conforme</td>
+      <td>Non conforme</td>
+      <% if @default_view != :transport_datas %>
+        <td>Ignoré</td>
+      <% end %>
+    </tr>
+    <% @sum_report.each do |key, value| %>
+      <% key = @default_view unless key %>
+      <tr>
+        <td>
+          <% type_name = t("report.default_view.#{key}")%>
+          <% if @default_view == :transport_datas %>
+            <%= link_to validation_job_path(@job, default_view: 'transport_datas', type: key.to_s) do %>
+              <span class="glyphicon glyphicon-eye-open"></span>
+              <%= type_name %>
+            <% end %>
+          <% else %>
+            <%= type_name %>
+          <% end %>
+        </td>
+        <td>
+          <% if @default_view == :transport_datas && key != 'line' %>
+            <% if value[:ok] > 0 %>
+              <% icon = get_icon(:ok) %>
+              <span class="ievkit-ColorBlock-<%= icon %> glyphicon glyphicon-<%= icon %>"></span>
+            <% end %>
+          <% else %>
+            <span class="badge"><%= value[:ok] %></span>
+          <% end %>
+        </td>
+        <td>
+          <% if @default_view == :transport_datas && key != 'line' %>
+            <% if value[:error] > 0 %>
+              <% icon = get_icon(:error, value[:error]) %>
+              <span class="ievkit-ColorBlock-<%= icon %> glyphicon glyphicon-<%= icon %>"></span>
+            <% end %>
+          <% else %>
+            <span class="badge"><%= value[:error] %></span>
+          <% end %>
+        </td>
+        <% if @default_view != :transport_datas %>
+          <td>
+            <span class="badge"><%= value[:ignored] %></span>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

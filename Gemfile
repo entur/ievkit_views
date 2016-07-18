@@ -11,5 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-# gem 'byebug', group: [:development, :test]
+gem 'byebug', group: [:development, :test]
+gem 'ievkit', github: 'afimb/ievkit', branch: 'feature/add_cache', group: :development
 

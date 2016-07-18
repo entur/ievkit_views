@@ -1,0 +1,58 @@
+<div class="panel-group ievkit-AccordionBlock" id="accordion" role="tablist" aria-multiselectable="true">
+  <% @elements_to_paginate.each_with_index do |element, index| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"
+           role="tab"
+           id="heading-<%= index %>">
+        <h4 class="panel-title">
+          <% if element[:error_or_warning] %>
+            <a class="collapsed"
+               role="button"
+               data-toggle="collapse"
+               data-parent="#accordion"
+               data-jump-to="<%= index %>"
+               href="#collapse-<%= index %>"
+               aria-expanded="false"
+               aria-controls="collapse-<%= index %>">
+          <% end %>
+            <% icon = get_icon(element[:status], element[:count_error], element[:count_warning]) %>
+            <% fs_status = element[:status].present? ? element[:status] : 'none' %>
+            <span class="ievkit-ColorBlock-<%= icon %> glyphicon glyphicon-<%= icon %>"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="<%= get_icon_title(fs_status, element[:count_error], element[:count_warning]) %>"></span>
+            <%= element[:name] %>
+          <% if element[:error_or_warning] %></a><% end %>
+          <% if @default_view == :tests %>
+            <%= link_to "#{ENV['SPEC_VALIDATION_URL']}/#{I18n.locale}/#{element[:name]}.html", target: '_blank', rel: 'noreferrer' do %>
+              <span class="glyphicon glyphicon-link"></span>
+            <% end %>
+          <% end %>
+          <% if element[:count_error] %>
+            <span class="pull-right badge<%= ' ievkit-BgColorBlock-remove' if element[:count_error ] > 0 %>">
+              <%= t('count_errors', count: element[:count_error]) %>
+            </span>
+          <% end %>
+          <% if element[:count_warning] %>
+            <span class="pull-right badge<%= ' ievkit-BgColorBlock-alert' if element[:count_warning] > 0 %>"
+                  style="margin-right:4px;">
+              <%= t('count_warnings', count: element[:count_warning]) %>
+            </span>
+          <% end %>
+        </h4>
+      </div>
+      <% if element[:error_or_warning] %>
+        <div id="collapse-<%= index %>"
+             class="panel-collapse collapse"
+             role="tabpanel"
+             aria-labelledby="heading-<%= index %>">
+          <div class="panel-body ievkit-ReportBlock-results">
+            <%= render "ievkit_views/report_results_#{@default_view}", element: element %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @elements_to_paginate %>
