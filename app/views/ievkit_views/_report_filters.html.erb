@@ -1,0 +1,34 @@
+<%= form_tag current_page, method: :get, class: 'form-inline cvd-SearchBlock' do %>
+  <%= hidden_field_tag(:default_view, @default_view) %>
+  <div class="form-group cvd-SearchBlock-search">
+    <%= label_tag t('search_form.label.search') %>
+    <%= search_field_tag 'q[search]', @job.search, { class: 'form-control' } %>
+  </div>
+  <% if false %>
+  <div class="form-group">
+    <%= label_tag t('search_form.label.state') %>
+    <% if @default_view == :files %>
+      <%= select_tag 'q[filter][status]', options_for_select([[t('compliance_check_results.severities.error_txt'), 'error'],
+                                                              [t('compliance_check_results.severities.ignored_txt'), 'ignored'],
+                                                              [t('compliance_check_results.severities.success_txt'), 'ok']], nil),
+                     class: 'form-control', prompt: 'Tous' %>
+    <% else %>
+      <%= select_tag 'q[filter][transport_datas]', options_for_select([[t('report.conform_lines'), 'conform_line'],
+                                                                       [t('report.nonconforming_lines'), 'nonconform_line']],
+                                                                      nil),
+                     class: 'form-control', prompt: 'Tous' %>
+    <% end %>
+  </div>
+  <% end %>
+  <%= submit_tag t('search_form.submit', default: 'Submit'), class: 'btn btn-primary' %>
+<% end %>
+
+<% if @search.present? %>
+  <script>
+    $(document).on('page:change', function() {
+      <% @search.each do |q| %>
+        $('#accordion').highlightRegex(/<%= q.html_safe %>/gi);
+      <% end %>
+    });
+  </script>
+<% end %>

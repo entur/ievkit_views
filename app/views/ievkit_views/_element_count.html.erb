@@ -1,0 +1,3 @@
+<% if element[:error_or_warning] && errors_count < (element[:count_warning].to_i + element[:count_error].to_i) %>
+  <li class="ievkit-AccordionBlock-errorId">...<%= (element[:count_warning].to_i + element[:count_error].to_i) - errors_count %> de plus.</li>
+<% end %>

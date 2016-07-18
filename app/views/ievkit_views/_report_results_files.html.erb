@@ -1,0 +1,41 @@
+<% if element[:check_point_errors] %>
+  <% errors_list = {} %>
+  <% errors_count = 0 %>
+  <ul>
+    <% element[:check_point_errors].each do |error_key| %>
+      <% error = @errors[error_key] %>
+      <% next unless error %>
+      <% error_test_id = error[:test_id].present? ? error[:test_id] : 'Problème de cohérence entre différents fichiers' %>
+      <% errors_list[error_test_id] ||= []  %>
+      <% errors_list[error_test_id] << error  %>
+    <% end %>
+    <% errors_list.each do |key, values| %>
+      <li>
+        <strong>
+          <%= button_tag type: :button, class: 'hide show-js ievkit-AccordionBlock-details', 'data-toggle': 'tooltip', 
+                         'data-placement': 'top', 'title': 'Déplier/Plier' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+          <% end %>
+          <%= key %>
+          <%= link_to "#{ENV['SPEC_VALIDATION_URL']}/#{I18n.locale}/#{key}.html", target: '_blank', rel: 'noreferrer' do %>
+            <span class="glyphicon glyphicon-link"></span>
+          <% end %>
+          -
+          <%= values.first[:test_name] %>
+        </strong>
+        <div class="hide-js">
+          <ul>
+            <% errors_count += values.count %>
+            <% values.each do |detail| %>
+              <li>
+                <%= render 'ievkit_views/file_details', detail: detail, filename: false %>
+                <%= detail[:error_name] %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </li>
+    <% end %>
+    <%= render 'ievkit_views/element_count', element: element, errors_count: errors_count %>
+  </ul>
+<% end %>
