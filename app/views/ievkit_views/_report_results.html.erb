@@ -21,7 +21,7 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="<%= get_icon_title(fs_status, element[:count_error], element[:count_warning]) %>"></span>
-            <%= element[:name] %>
+            <%= element[:name].truncate(110) %>
           <% if element[:error_or_warning] %></a><% end %>
           <% if @default_view == :tests %>
             <%= link_to "#{ENV['SPEC_VALIDATION_URL']}/#{I18n.locale}/#{element[:name]}.html", target: '_blank', rel: 'noreferrer' do %>
