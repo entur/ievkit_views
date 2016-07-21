@@ -49,6 +49,16 @@ module IevkitViews
       }
     end
 
+    def sum_report_for_tests(datas)
+      {
+        'tests': {
+          ok: datas.map{ |k, v| v[:ok] }.sum,
+          error: datas.map{ |k, v| v[:error] }.sum,
+          ignored: datas.map{ |k, v| v[:ignored] }.sum
+        }
+      }
+    end
+
     def errors
       clean_errors = []
       return clean_errors unless @validation

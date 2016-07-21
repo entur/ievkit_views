@@ -16,20 +16,22 @@
     </div>
   </div>
 <% end %>
-<div class="row">
-  <div class="col-sm-12">
-    <%= render 'ievkit_views/report_filters', { current_page: current_page } %>
+<% if @default_view != :transport_datas  || (@default_view == :transport_datas && @transport_datas_selected.present?) %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= render 'ievkit_views/report_filters', { current_page: current_page } %>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <p>
-      <% if @default_view == :transport_datas && @transport_datas_selected %>
-        <%= t("report.total_results.synthesis.#{@transport_datas_selected}", count: @datas.count) %>
-      <% else %>
-        <%= t("report.total_results.#{@default_view}", count: @datas.count) %>
-      <% end %>
-    </p>
-    <%= render 'ievkit_views/report_results' %>
+  <div class="row">
+    <div class="col-sm-12">
+      <p>
+        <% if @default_view == :transport_datas && @transport_datas_selected != 'all' %>
+          <%= t("report.total_results.synthesis.#{@transport_datas_selected}", count: @datas.count) %>
+        <% else %>
+          <%= t("report.total_results.#{@default_view}", count: @datas.count) %>
+        <% end %>
+      </p>
+      <%= render 'ievkit_views/report_results' %>
+    </div>
   </div>
-</div>
+<% end %>
