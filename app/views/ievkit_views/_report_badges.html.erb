@@ -8,8 +8,20 @@
           </strong>
         <% end %>
       </td>
-      <td>Conforme</td>
-      <td>Non conforme</td>
+      <td>
+        <% if @default_view == :tests %>
+          Succès
+        <% else %>
+          Conforme
+        <% end %>
+      </td>
+      <td>
+        <% if @default_view == :tests %>
+          Échec
+        <% else %>
+          Non conforme
+        <% end %>
+      </td>
       <% if @default_view != :transport_datas %>
         <td>Ignoré</td>
       <% end %>

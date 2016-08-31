@@ -23,6 +23,7 @@ module IevkitViews
           name: d['test_id'],
           type: d['type'],
           status: status,
+          severity: severity,
           count_error: count_error,
           count_warning: count_warning,
           check_point_errors: d['errors']

@@ -51,12 +51,15 @@ module IevkitViews
 
     def sum_report_for_tests(datas)
       {}.tap{ |hash|
-        hash['tests-1-2'] = { ok: 0, error: 0, ignored: 0 }
-        hash['tests-3-4'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-1-2-error'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-1-2-warning'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-3-4-error'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-3-4-warning'] = { ok: 0, error: 0, ignored: 0 }
         datas.each do |d|
+          severity = d[:severity] == :error ? :error : :warning
           status = d[:status] == :warning ? :error : d[:status]
-          hash["tests-1-2"][status] += 1 if %w(1 2).include? d[:name][0]
-          hash["tests-3-4"][status] += 1 if %w(3 4).include? d[:name][0]
+          hash["tests-1-2-#{severity}"][status] += 1 if %w(1 2).include? d[:name][0]
+          hash["tests-3-4-#{severity}"][status] += 1 if %w(3 4).include? d[:name][0]
         end
       }
     end
