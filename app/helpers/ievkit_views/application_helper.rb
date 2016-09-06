@@ -11,7 +11,7 @@ module IevkitViews
       if name == :error && count_error > 0
         'minus-sign'
       elsif name == :warning || (count_warning > 0 && name != :ignored)
-        'alert'
+        'warning-sign'
       elsif name == :ignored
         'ban-circle'
       else
@@ -26,7 +26,7 @@ module IevkitViews
                   else
                     name.to_s
                   end
-      I18n.t("report_results.icons.title.#{fs_status.downcase}_txt", default: fs_status.to_s.humanize)
+      I18n.t("report.icons.#{fs_status.downcase}_txt", default: fs_status.to_s.humanize)
     end
   end
 end

@@ -1,12 +1,12 @@
-<%= form_tag current_page, method: :get, class: 'form-inline cvd-SearchBlock' do %>
+<%= form_tag url_for, method: :get, class: 'form-inline ievkit-SearchBlock' do %>
   <%= hidden_field_tag(:default_view, @default_view) %>
   <div class="form-group cvd-SearchBlock-search">
-    <%= label_tag t('search_form.label.search') %>
+    <%= label_tag t('report.search_form.label.search') %>
     <%= search_field_tag 'q[search]', @job.search, { class: 'form-control' } %>
   </div>
   <% if false %>
   <div class="form-group">
-    <%= label_tag t('search_form.label.state') %>
+    <%= label_tag t('report.search_form.label.state') %>
     <% if @default_view == :files %>
       <%= select_tag 'q[filter][status]', options_for_select([[t('compliance_check_results.severities.error_txt'), 'error'],
                                                               [t('compliance_check_results.severities.ignored_txt'), 'ignored'],
@@ -20,7 +20,7 @@
     <% end %>
   </div>
   <% end %>
-  <%= submit_tag t('search_form.submit', default: 'Submit'), class: 'btn btn-primary' %>
+  <%= submit_tag t('report.search_form.submit', default: 'Submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <% if @search.present? %>

@@ -11,11 +11,13 @@
   </div>
 <% end %>
 <% if @default_view != :transport_datas  || (@default_view == :transport_datas && @transport_datas_selected.present?) %>
-  <div class="row">
-    <div class="col-sm-12">
-      <%= render 'ievkit_views/report_filters', { current_page: current_page } %>
+  <% if @datas.count > 0 %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'ievkit_views/report_filters' %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div class="row">
     <div class="col-sm-12">
       <p>

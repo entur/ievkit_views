@@ -33,7 +33,7 @@
           <td>
             <% type_name = t("report.default_view.#{key}")%>
             <% if @default_view == :transport_datas %>
-              <%= link_to validation_job_path(@job, default_view: 'transport_datas', type_td: key.to_s) do %>
+              <%= link_to url_for(default_view: 'transport_datas', type_td: key.to_s) do %>
                 <span class="glyphicon glyphicon-eye-open"></span>
                 <%= type_name %>
               <% end %>
@@ -73,7 +73,7 @@
 </div>
 <% if @default_view == :transport_datas && @transport_datas_selected != 'all' %>
   <div>
-    <%= link_to validation_job_path(@job, default_view: 'transport_datas', type_td: 'all') do %>
+    <%= link_to url_for(default_view: 'transport_datas', type_td: 'all') do %>
       Afficher toutes les données de transport
     <% end %>
   </div>

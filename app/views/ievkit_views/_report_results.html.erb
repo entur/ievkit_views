@@ -55,4 +55,4 @@
   <% end %>
 </div>
 
-<%= paginate @elements_to_paginate %>
+<%= render 'ievkit_views/paginate', { datas: @elements_to_paginate } %>
