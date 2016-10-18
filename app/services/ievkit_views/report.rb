@@ -31,13 +31,14 @@ module IevkitViews
     end
 
     def search_for(datas)
-      return datas unless search.present?
+      return datas unless search.present? || datas.present?
       files = []
       files << datas.select{ |value| value.to_s.downcase =~/#{search.downcase}/i }
       files.flatten!
     end
 
     def sum_report(datas)
+      return {} unless datas.present?
       {}.tap{ |hash|
         datas.map{ |el| el[:type] }.uniq.each do |type|
           hash[type] = {
@@ -50,6 +51,7 @@ module IevkitViews
     end
 
     def sum_report_for_tests(datas)
+      return {} unless datas.present?
       {}.tap{ |hash|
         hash['tests-1-2-error'] = { ok: 0, error: 0, ignored: 0 }
         hash['tests-1-2-warning'] = { ok: 0, error: 0, ignored: 0 }
