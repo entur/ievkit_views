@@ -31,7 +31,7 @@ module IevkitViews
     end
 
     def search_for(datas)
-      return datas unless search.present? || datas.present?
+      return datas unless search.present? && datas.present?
       files = []
       files << datas.select{ |value| value.to_s.downcase =~/#{search.downcase}/i }
       files.flatten!
