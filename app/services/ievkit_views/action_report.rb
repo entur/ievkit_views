@@ -59,7 +59,7 @@ module IevkitViews
 
     def collections(type = 'line')
       datas = []
-      return datas unless @report['collections']
+      return datas unless @report['collections'].present?
       collections = []
       @report['collections'].each{ |el|
         collections << el['objects'] if el['type'] == type
