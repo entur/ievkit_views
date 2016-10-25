@@ -4,11 +4,10 @@ module IevkitViews
     include IevkitViews::ApplicationHelper
     attr_reader :result, :datas, :search
 
-    def initialize(referential, link_action, type_report, link_validation = nil, search = nil, disable_cache = true)
+    def initialize(referential, link_action, type_report, link_validation = nil, search = nil)
       @datas = {}
       @result = :error
       ievkit = ::Ievkit::Job.new(referential)
-      ievkit.disable_cache = disable_cache
       report = ievkit.get_job(link_action)
       @report = report[type_report] if report
       @validation = link_validation ? ievkit.get_job(link_validation) : nil
