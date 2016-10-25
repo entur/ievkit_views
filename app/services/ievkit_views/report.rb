@@ -70,7 +70,7 @@ module IevkitViews
     def errors
       clean_errors = []
       return clean_errors unless @validation
-      errors = @validation['validation_report']['result']['errors']
+      errors = @validation['validation_report']['errors']
       return clean_errors unless errors
       errors.each do |error|
         error = key_to_sym(error)
