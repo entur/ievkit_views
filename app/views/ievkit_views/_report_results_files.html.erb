@@ -29,7 +29,7 @@
             <% values.each do |detail| %>
               <li>
                 <%= render 'ievkit_views/file_details', detail: detail, filename: false %>
-                <%= detail[:error_name] %>
+                <%= render 'ievkit_views/report_results_error_name', error: detail %>
               </li>
             <% end %>
           </ul>
