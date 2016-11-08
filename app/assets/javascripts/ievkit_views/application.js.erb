@@ -1,0 +1,55 @@
+"use strict";
+
+(function($){
+  var setProgressBar = function(val1, val2) {
+    var $pb1 = $('#progress-bar-steps');
+    $pb1.css('width', val1 + '%');
+    $pb1.find('.progress-bar-value').text(val1);
+    $pb1.attr('aria-valuenow', val1);
+    var $pb2 = $('#progress-bar-current-step');
+    $pb2.css('width', val2 + '%');
+    $pb2.find('.progress-bar-value').text(val2);
+    $pb2.attr('aria-valuenow', val2);
+  };
+
+  var progressJob = function() {
+    var $el = $('[data-progress-job]');
+    if($el.length == 1) {
+      var url = $el.data('progress-job');
+      $.ajax({
+        url: url
+      })
+      .done(function( datas ) {
+        if (datas.redirect) {
+          setProgressBar(100, 100);
+          window.location.href = datas.redirect;
+        } else if (datas.error_code) {
+          if ($('.cvd-JobListActionsBlock').length == 1)
+            $('.cvd-JobListActionsBlock').remove();
+          $('.progress').before('<p>Erreur impossible de traiter votre demande : ' + datas.error_code + '</p>');
+          $('.progress').remove();
+        } else {
+          setProgressBar(datas.steps_percent, datas.current_step_percent);
+        }
+      });
+      window.setTimeout(progressJob, <%= raw ENV["PROGRESS_BAR_TIMEOUT"] %>);
+    }
+  };
+
+  $(document).ready(function () {
+    $('.hide-js').hide();
+    $('.show-js').removeClass('hide');
+    progressJob();
+    $('.ievkit-AccordionBlock-details').click( function() {
+      var $gi = $(this).find('.glyphicon');
+      $gi.toggleClass('glyphicon-plus glyphicon-minus');
+      $(this).closest('li').find('div').slideToggle();
+    });
+    $('[data-toggle="collapse"]').click( function() {
+      var index = parseInt($(this).data('jump-to'));
+      if(index > 4) {
+        window.location.href = '#heading-' + (index - 4);
+      }
+    });
+  });
+})(jQuery);
