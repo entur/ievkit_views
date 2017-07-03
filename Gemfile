@@ -12,5 +12,4 @@ gemspec
 
 # To use a debugger
 gem 'byebug', group: [:development, :test]
-gem 'ievkit', github: 'afimb/ievkit', branch: 'feature/add_cache', group: :development
-
+gem 'ievkit', github: 'afimb/ievkit', group: [:development, :test]

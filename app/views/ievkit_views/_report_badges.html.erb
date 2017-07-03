@@ -4,26 +4,28 @@
       <td>
         <% if @default_view == :transport_datas %>
           <strong>
-            Synthèse par données de transport
+            <%= t('report.total_results.transport_data_category') %>
           </strong>
         <% end %>
       </td>
       <td>
         <% if @default_view == :tests %>
-          Succès
+          <%= t('report.total_results.success') %>
         <% else %>
-          Conforme
+          <%= t('report.total_results.compliant') %>
         <% end %>
       </td>
       <td>
         <% if @default_view == :tests %>
-          Échec
+          <%= t('report.total_results.failure') %>
         <% else %>
-          Non conforme
+          <%= t('report.total_results.not_compliant') %>
         <% end %>
       </td>
       <% if @default_view != :transport_datas %>
-        <td>Ignoré</td>
+        <td>
+          <%= t('report.total_results.ignored') %>
+        </td>
       <% end %>
     </tr>
     <% if @sum_report %>
@@ -38,7 +40,7 @@
                 <%= type_name %>
               <% end %>
             <% else %>
-              Nombre de <%= type_name.downcase %>
+              <%= t('report.total_results.number_of') %> <%= type_name.downcase %>
             <% end %>
           </td>
           <td>
@@ -74,7 +76,7 @@
 <% if @default_view == :transport_datas && @transport_datas_selected != 'all' %>
   <div>
     <%= link_to url_for(default_view: 'transport_datas', type_td: 'all') do %>
-      Afficher toutes les données de transport
+      <%= t('report.total_results.show_all') %>
     <% end %>
   </div>
 <% end %>
