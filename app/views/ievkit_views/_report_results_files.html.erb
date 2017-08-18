@@ -5,7 +5,7 @@
     <% element[:check_point_errors].each do |error_key| %>
       <% error = @errors[error_key] %>
       <% next unless error %>
-      <% error_test_id = error[:test_id].present? ? error[:test_id] : 'Problème de cohérence entre différents fichiers' %>
+      <% error_test_id = error[:test_id].present? ? error[:test_id] : 'Inconsitencies detected in files' %>
       <% errors_list[error_test_id] ||= []  %>
       <% errors_list[error_test_id] << error  %>
     <% end %>

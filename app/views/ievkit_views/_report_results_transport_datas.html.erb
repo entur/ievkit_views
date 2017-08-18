@@ -6,7 +6,7 @@
       <% error = @errors[error_key] %>
       <% next unless error %>
       <% if error[:source] %>
-        <% filename = error[:source][:file].present? ? error[:source][:file][:filename] : 'Problème de cohérence entre différentes données de transport' %>
+        <% filename = error[:source][:file].present? ? error[:source][:file][:filename] : 'Inconsitencies detected in transport data' %>
         <% errors_list[filename] ||= []  %>
         <% errors_list[filename] << error  %>
       <% end %>
