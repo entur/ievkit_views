@@ -72,10 +72,14 @@ module IevkitViews
       errors = @validation['validation_report']['errors']
       return clean_errors unless errors
       errors.each do |error|
+
         error = key_to_sym(error)
-        error[:source_label] = error[:source][:label]
-        error[:source_objectid] = error[:source][:objectid]
-        error[:filename] = error[:source][:file][:filename] if error[:source][:file]
+
+        if error[:source]
+          error[:source_label] = error[:source][:label]
+          error[:source_objectid] = error[:source][:objectid]
+          error[:filename] = error[:source][:file][:filename] if error[:source][:file]
+        end
         if error[:target]
           error[:target].each_with_index do |target, index|
             target = key_to_sym(target)
@@ -86,7 +90,9 @@ module IevkitViews
         end
         error[:test_name] = I18n.t("compliance_check_results.details.#{error[:test_id]}")
         begin
-          error[:error_name] = I18n.t("compliance_check_results.details.detail_#{error[:error_id]}", error)
+          if !error[:error_value]
+            error[:error_name] = I18n.t("compliance_check_results.details.detail_#{error[:error_id]}", error)
+          end
         rescue => e
           Ievkit::Log.logger.error e.message
           error[:error_name] = e.message
