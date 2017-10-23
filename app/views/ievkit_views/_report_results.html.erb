@@ -15,12 +15,13 @@
                aria-expanded="false"
                aria-controls="collapse-<%= index %>">
           <% end %>
+
             <% icon = get_icon(element[:status], element[:count_error], element[:count_warning]) %>
             <% fs_status = element[:status].present? ? element[:status] : 'none' %>
             <span class="ievkit-ColorBlock-<%= icon %> glyphicon glyphicon-<%= icon %>"
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="<%= get_icon_title(fs_status, element[:count_error], element[:count_warning]) %>"></span>
+                  title="<%= get_icon_title(fs_status, element[:count_error], element[:count_warning], element[:count_info]) %>"></span>
             <%= element[:name].truncate(110) %>
           <% if element[:error_or_warning] %></a><% end %>
           <% if @default_view == :tests %>
@@ -37,6 +38,11 @@
             <span class="pull-right badge<%= ' ievkit-BgColorBlock-alert' if element[:count_warning] > 0 %>"
                   style="margin-right:4px;">
               <%= t('count_warnings', count: element[:count_warning]) %>
+            </span>
+          <% end %>
+          <% if element[:count_info] %>
+            <span class="pull-right badge<%= ' ievkit-BgColorBlock-info' if element[:count_info ] > 0 %>">
+              <%= t('count_info', count: element[:count_info]) %>
             </span>
           <% end %>
         </h4>

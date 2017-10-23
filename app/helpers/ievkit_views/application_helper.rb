@@ -5,13 +5,15 @@ module IevkitViews
       type ? datas.count{ |d| d[:type] == type } : datas.count
     end
 
-    def get_icon(name, count_error = 0, count_warning = 0)
+    def get_icon(name, count_error = 0, count_warning = 0, count_info = 0)
       return 'question-sign' unless name.present?
       name = name.to_sym.downcase
       if name == :error && count_error > 0
         'minus-sign'
       elsif name == :warning || (count_warning > 0 && name != :ignored)
         'warning-sign'
+      elsif name == :info || (count_info > 0 && name != :ignored)
+        'info-sign'
       elsif name == :ignored
         'ban-circle'
       else
@@ -19,7 +21,7 @@ module IevkitViews
       end
     end
 
-    def get_icon_title(name, count_error = 0, count_warning = 0)
+    def get_icon_title(name, count_error = 0, count_warning = 0, count_info = 0)
       name = name.to_sym.downcase
       fs_status = if (count_warning > 0 && name != :ignored)
                     'warning'

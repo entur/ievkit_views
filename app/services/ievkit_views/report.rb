@@ -18,12 +18,12 @@ module IevkitViews
     end
 
     def sort_datas(datas)
-      sorted_by = { error: [], warning: [], ok: [], ignored: [], '': [] }
+      sorted_by = { error: [], warning: [], info: [], ok: [], ignored: [], '': [] }
       datas.flatten.each{ |d|
         sorted_by[d[:status]] << d
       }
       sorted_by.each{ |key, value|
-        sorted_by[key] = value.sort_by{ |a| [a[:count_error], a[:count_warning]] }.reverse
+        sorted_by[key] = value.sort_by{ |a| [a[:count_error], a[:count_warning], a[:count_info]] }.reverse
       }
       [].tap{ |a|
         a << sorted_by.map{ |_k, v| v }
@@ -43,7 +43,7 @@ module IevkitViews
         datas.map{ |el| el[:type] }.uniq.each do |type|
           hash[type] = {
             ok: badge_count(datas, type, :ok),
-            error: badge_count(datas, type, :error, :warning),
+            error: badge_count(datas, type, :error, :warning, :info),
             ignored: badge_count(datas, type, :ignored)
           }
         end
@@ -55,11 +55,19 @@ module IevkitViews
       {}.tap{ |hash|
         hash['tests-1-2-error'] = { ok: 0, error: 0, ignored: 0 }
         hash['tests-1-2-warning'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-1-2-info'] = { ok: 0, error: 0, ignored: 0 }
         hash['tests-3-4-error'] = { ok: 0, error: 0, ignored: 0 }
         hash['tests-3-4-warning'] = { ok: 0, error: 0, ignored: 0 }
+        hash['tests-3-4-info'] = { ok: 0, error: 0, ignored: 0 }
         datas.each do |d|
-          severity = d[:severity] == :error ? :error : :warning
-          status = d[:status] == :warning ? :error : d[:status]
+          if d[:severity] == :error
+            severity = :error
+          elsif d[:severity] == :warning
+            severity = :warning
+          else
+            severity = :info
+          end
+          status = d[:status] == :warning || d[:status] == :info ? :error : d[:status]
           hash["tests-1-2-#{severity}"][status] += 1 if %w(1 2).include? d[:name][0]
           hash["tests-3-4-#{severity}"][status] += 1 if %w(3 4).include? d[:name][0]
         end

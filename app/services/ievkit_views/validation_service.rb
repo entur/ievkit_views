@@ -112,7 +112,7 @@ module IevkitViews
       # TODO - Wait for IEV update
       if line_infos && line_infos.key?('  ')
         @report_dup.linename = line_infos['     ']
-        @count_errors[:lines][@report_dup.linename] ||= { error: 0, warning: 0 }
+        @count_errors[:lines][@report_dup.linename] ||= { error: 0, warning: 0, info: 0 }
         @count_errors[:lines][@report_dup.linename][get_status(@report_dup)] += 1
       end
     end
@@ -122,7 +122,7 @@ module IevkitViews
         @report_dup.filename = file_infos['filename']
         @report_dup.line_number = file_infos['line_number'] if file_infos.key? 'line_number'
         @report_dup.column_number = file_infos['column_number'] if file_infos.key? 'column_number'
-        @count_errors[:files][@report_dup.filename] ||= { error: 0, warning: 0 }
+        @count_errors[:files][@report_dup.filename] ||= { error: 0, warning: 0, info: 0 }
         @count_errors[:files][@report_dup.filename][get_status(@report_dup)] += 1
       end
     end
@@ -207,7 +207,7 @@ module IevkitViews
             next if @search.count { |search_value| file['name'].to_s.downcase =~ /#{search_value}/i } == 0
           end
           @filenames << { name: file['name'], status: file['status'] }
-          @count_errors[:files][file['name']] ||= { error: 0, warning: 0 }
+          @count_errors[:files][file['name']] ||= { error: 0, warning: 0, info: 0 }
         end
       end
       if (@filter['lines'].blank? || @filter['lines'] == 'conform_line') && @action_report[:lines]
@@ -217,14 +217,14 @@ module IevkitViews
             next if @search.count { |search_value| line['name'].to_s.downcase =~ /#{search_value}/i } == 0
           end
           @lines << { name: line['name'], status: line['status'] }
-          @count_errors[:lines][line['name']] ||= { error: 0, warning: 0 }
+          @count_errors[:lines][line['name']] ||= { error: 0, warning: 0, info: o }
         end
       end
     end
 
     def clean_datas
       add_others
-      filenames_sorted = { error: [], warning: [], ok: [], ignored: [], '': [] }
+      filenames_sorted = { error: [], warning: [], info: [], ok: [], ignored: [], '': [] }
       if @filenames.present?
         @filenames.compact.reject! { |f| f[:name].blank? }
         @filenames.uniq! { |f| f[:name] }

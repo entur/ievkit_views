@@ -11,6 +11,8 @@ module IevkitViews
                    :error
                  elsif severity == :warning && result == :nok
                    :warning
+                 elsif severity == :info && result == :nok
+                   :info
                  elsif result == :uncheck
                    :ignored
                  else
@@ -19,6 +21,7 @@ module IevkitViews
         check_point_error_count = d['check_point_error_count'].to_i
         count_error = status == :error ? check_point_error_count : 0
         count_warning = status == :warning ? check_point_error_count : 0
+        count_info = status == :info ? check_point_error_count : 0
         datas << {
           name: d['test_id'],
           type: d['type'],
@@ -26,9 +29,10 @@ module IevkitViews
           severity: severity,
           count_error: count_error,
           count_warning: count_warning,
+          count_info: count_info,
           check_point_errors: d['errors']
         }.tap{ |hash|
-          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning]) > 0
+          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning] + hash[:count_info]) > 0
         }
       end
       sort_datas(datas)

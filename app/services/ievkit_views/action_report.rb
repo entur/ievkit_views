@@ -29,7 +29,7 @@ module IevkitViews
           count_warning: d['check_point_warning_count'].to_i,
           check_point_errors: d['check_point_errors']
         }.tap{ |hash|
-          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning]) > 0
+          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning] + hash[:count_info]) > 0
         }
       end
       return sort_datas(datas)
@@ -50,7 +50,7 @@ module IevkitViews
           count_warning: d['check_point_warning_count'].to_i,
           check_point_errors: d['check_point_errors']
         }.tap{ |hash|
-          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning]) > 0
+          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning] + hash[:count_info]) > 0
         }
       end
       return sort_datas(datas)
@@ -76,7 +76,7 @@ module IevkitViews
           count_warning: d['check_point_warning_count'].to_i,
           check_point_errors: d['check_point_errors']
         }.tap{ |hash|
-          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning]) > 0
+          hash[:error_or_warning] = (hash[:count_error] + hash[:count_warning] + hash[:count_info]) > 0
         }
       end
       return sort_datas(datas)
