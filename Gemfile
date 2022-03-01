@@ -12,4 +12,4 @@ gemspec
 
 # To use a debugger
 gem 'byebug', group: [:development, :test]
-gem 'ievkit', github: 'afimb/ievkit', group: [:development, :test]
+gem 'ievkit', git: 'https://github.com/entur/ievkit.git', branch: 'master' , group: [:development, :test]
