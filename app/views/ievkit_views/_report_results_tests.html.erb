@@ -6,7 +6,7 @@
       <% error = @errors[error_key] %>
       <% next unless error %>
       <% if error[:source] %>
-        <% filename = error[:source][:file].present? ? error[:source][:file][:filename] : 'Inconsitencies detected in tests' %>
+        <% filename = error[:source][:file].present? ? error[:source][:file][:filename] : 'Inconsistencies detected in tests' %>
         <% errors_list[filename] ||= []  %>
         <% errors_list[filename] << error  %>
       <% end %>
