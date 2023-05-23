@@ -101,7 +101,7 @@ module IevkitViews
         end
         error[:test_name] = I18n.t("compliance_check_results.details.#{error[:test_id]}")
         begin
-            error[:error_name] = I18n.t("compliance_check_results.details.detail_#{error[:error_id]}", error)
+            error[:error_name] = I18n.t("compliance_check_results.details.detail_#{error[:error_id]}", **error)
         rescue => e
           Ievkit::Log.logger.error e.message
           error[:error_name] = e.message
